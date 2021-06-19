@@ -7,14 +7,33 @@ require './db.php';
 require 'auth.php';
 
 
-head();
+$conn = db_connect();
 
+
+if (isset($_GET['csv'])) {
+    header('Content-Type: text/csv; charset=utf-8');
+    header('Content-Disposition: attachment; filename=ettevotted.csv');
+    $output = fopen('php://output', 'w');
+    fputcsv($output, ['id', 'Ettevõtte nimi', 'Valdkond', 'Registrikood', 'Aadress', 'Juhendaja nimi', 'Juhendaja e-Post', 'Telefon', 'Koduleht', 'Kontakt', 'Lisainfo', 'Tunnustatud', 'Üldtelefon']);
+    $stmt = $conn->prepare("SELECT * FROM praktika_ettevotted");
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while($row = $result->fetch_row()) {
+        $row[11] = $row[11] ? 'Jah' : '';
+        if (!empty($row[2])) {
+            $row[2] = implode(', ', json_decode($row[2]) ?? []);
+        } 
+        fputcsv($output, $row);
+    }
+    exit();
+}
+
+
+head();
 
 $search = $_GET['q'] ?? null;
 $valdkond = $_GET['valdkond'] ?? null;
 
-
-$conn = db_connect();
 
 
 ?>
@@ -108,6 +127,10 @@ $conn = db_connect();
     <a href="praktika.php" class="btn-primary btn float-right">
         <i class="fas fa-plus"></i>
         Lisa ettevõtte
+    </a>
+    <a href="?csv" class="btn-secondary btn float-right mr-3">
+        <i class="fas fa-download"></i>
+        CSV
     </a>
 
 </h1>
