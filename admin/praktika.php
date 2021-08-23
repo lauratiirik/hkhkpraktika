@@ -38,7 +38,7 @@ if (isset($_POST['submit'])) {
       $stmt->bind_param('sssssssssssii', $_POST['nimi'], $valdkond, $registrikood, $_POST['aadress'], $juhendaja, $epost, $telefoninumber, $uldtelefon, $koduleht, $uldkontakt, $lisainfo, $tunnustamine, $_GET['id']);
       $stmt->execute();
     } else {
-      $stmt = $conn->prepare("INSERT INTO praktika_ettevotted (Nimi, Valdkond, Registrikood, Aadress, Juhendaja, Epost, Telefoninumber, Uldtelefon, Koduleht, Uldkontakt, Lisainfo, Tunnustamine) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+      $stmt = $conn->prepare("INSERT INTO praktika_ettevotted (Nimi, Valdkond, Registrikood, Aadress, Juhendaja, Epost, Telefoninumber, Uldtelefon, Koduleht, Uldkontakt, Lisainfo, Tunnustamine) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
       $stmt->bind_param('sssssssssssi', $_POST['nimi'], $valdkond, $registrikood, $_POST['aadress'], $juhendaja, $epost, $telefoninumber, $uldtelefon, $koduleht, $uldkontakt, $lisainfo, $tunnustamine);
       $stmt->execute();
 

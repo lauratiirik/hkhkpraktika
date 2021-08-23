@@ -83,6 +83,26 @@ head();
   <button type="submit" form="delete-form" class="btn btn-danger float-right" name="delete">Kustuta</button>
   <?php } ?>
 </form>
+
+<script>
+  var paroolEl = document.getElementById('parool');
+  function checkPassword() {
+    var parool = paroolEl.value;
+    console.log(paroolEl, parool);
+    if (parool.length > 0) {
+      var ok = /[A-Z]/.test(parool) && /[0-9]/.test(parool);
+      console.log(ok);
+      if (!ok) {
+        paroolEl.setCustomValidity("Parool peab sisaldama vähemalt ühte suurt tähte ja numbrit")
+      } else {
+        paroolEl.setCustomValidity("")
+      }
+    } else {
+      paroolEl.setCustomValidity("");
+    }
+  }
+  paroolEl.addEventListener('input', checkPassword);
+</script> 
 <form id="delete-form" method="POST" onsubmit="return confirm('kustuta?');"></form>
 
 

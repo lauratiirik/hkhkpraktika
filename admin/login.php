@@ -8,10 +8,6 @@
 		$login = $_POST['login'];
 		$pass = $_POST['pass'];
     require 'db.php';
-    if ($login == 'admin' && $pass == 'admin') {
-      $_SESSION['user'] = 'dummy';
-			header('Location: index.php');
-    }
     $conn = db_connect();
     $stmt = $conn->prepare("SELECT * FROM praktika_kasutajad WHERE Kasutaja = ?");
     $stmt->bind_param('s', $login);
