@@ -64,7 +64,7 @@ function head() {
       <li class="nav-item">
         <a class="nav-link" href="index.php">
           <i class="fas fa-fw fa-building"></i>
-          <span>Praktikaettevõtted</span>
+          <span>Praktika ettevõtted</span>
         </a>
       </li>
       <li class="nav-item">
